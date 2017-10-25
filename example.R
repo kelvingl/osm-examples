@@ -1,5 +1,5 @@
-# Instala pacote
-install.packages("OpenStreetMap")
+# Instala pacote - CUIDADO, necessita dos pacotes gdal-bin e libgdal-dev no linux
+install.packages(c("OpenStreetMap"))
 
 # Carrega pacote
 library(OpenStreetMap)
@@ -18,15 +18,20 @@ mapLatLon = openproj(map)
 plot(mapLatLon)
 
 # Dataset : http://datadrivensecurity.info/blog/pages/dds-dataset-collection.html
-data <- read.delim(
+dataset <- read.delim(
   file = "marx-geo.csv",
   sep = ","
 )
 
-# Gera "pontinhos"
+# Colore protocolos
+dataset$color <- "red"
+dataset[dataset$proto == "ICMP",]$color <- "blue"
+dataset[dataset$proto == "UDP",]$color <- "green"
+
+# Gera pontinhos
 points(
-  x = data$longitude, 
-  y = data$latitude, 
-  col = "red",
-  cex=.1
+  x = dataset$longitude,
+  y = dataset$latitude,
+  col = dataset$color,
+  pch = 19
 )
