@@ -33,5 +33,5 @@ points(
   x = dataset$longitude,
   y = dataset$latitude,
   col = dataset$color,
-  pch = 19
+  cex = .8
 )
